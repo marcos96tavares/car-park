@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+
+<body>
+
+
+<div layout:fragment="body">
+
+    <div class="container" >
+        <h2>Filterable Table</h2>
+        <p>Type something in the input field to search the table for first names, last names or car number plate:</p>
+       <div class="d-flex flex-row gap-3">
+           <input class="form-control" id="myInput" type="text" placeholder="Search..">
+
+       </div>
+
+        <br>
+        <div style="height: 400px; overflow-y: scroll;" >
+        <table id="myTable" class="table table-bordered table-striped">
+            <thead class="">
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>CarNumberPlate</th>
+                <th>Status</th>
+                <th>Duration</th>
+                <th>From</th>
+                <th>To</th>
+                <th>StartTime</th>
+                <th>FinishTime</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody >
+
+            <tr th:each="registration :${registrationDto}">
+                <td th:text="${registration.getDriverFirstName()}"></td>
+                <td th:text="${registration.getDriverLastName()}"></td>
+                <td th:text="${registration.getCarNumberPlate()}"></td>
+                <td th:text="${registration.getStatus()}"></td>
+                <td th:text="${registration.getDuration()}"></td>
+                <td th:text="${registration.getStarDate()}"></td>
+                <td th:text="${registration.getFinishDate()}"></td>
+                <td th:text="${registration.getStartTime()}"></td>
+                <td th:text="${registration.getFinishTime()}"></td>
+                <td class="my-2">
+                    <a th:href="@{/car-park/{registrationId}/update(registrationId =${registration.getRegistrationId()})}" class="edit m-3" ><i class="bi bi-pen-fill" title="Edit"></i></a>
+                    <a th:href="@{/car-park/{registrationId}/delete(registrationId=${registration.getRegistrationId()})}" class="delete" data-toggle="modal"><i class="bi bi-trash3-fill" title="Delete"></i></a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        </div>
+
+
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+</body>
+</html>

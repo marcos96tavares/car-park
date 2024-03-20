@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout.html}">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+
+<div layout:fragment="body">
+<div th:replace="history-layout :: navbar"></div>
+
+
+
+<div  class="container" >
+    <table class="table table-bordered table-striped" >
+        <thead class="">
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>CarNumberPlate</th>
+            <th>Duration</th>
+            <th>Date</th>
+
+        </tr>
+        </thead>
+        <tbody id="myTable">
+
+
+        <tr th:each=" registrationH :${registrationHistory}">
+            <td th:text="${registrationH.getDriverFirstName()}"></td>
+            <td th:text="${registrationH.getDriverLastName()}"></td>
+            <td th:text="${registrationH.getCarNumberPlateHistory()}"></td>
+            <td th:text="${registrationH.getDuration()}"></td>
+            <td th:text="${registrationH.getStarDate()}"></td>
+
+
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+
+
+
+</div>
+</body>
+</html>
